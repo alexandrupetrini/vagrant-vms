@@ -63,5 +63,6 @@ Vagrant.configure("2") do |config|
     yes | apt-get upgrade
     yes | apt-get install linux-headers-$(uname --kernel-release)
     yes | apt-get install wireguard wireguard-tools wireguard-dkms git
+    update-alternatives --set editor /usr/bin/vim.basic
   SHELL
 end
