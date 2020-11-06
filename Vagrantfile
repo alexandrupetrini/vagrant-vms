@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
     end
 
     wserver.vm.provider "virtualbox" do |wsvb|
-      wsvb.name = "client"
+      wsvb.name = "win_client"
       wsvb.memory = 2048
       wsvb.cpus = 1
     end
