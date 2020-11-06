@@ -61,8 +61,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     yes | apt-get upgrade
+    yes | apt-get install git isc-dhcp-server wpasupplicant
     yes | apt-get install linux-headers-$(uname --kernel-release)
-    yes | apt-get install wireguard wireguard-tools wireguard-dkms git
+    yes | apt-get install wireguard wireguard-tools wireguard-dkms
     update-alternatives --set editor /usr/bin/vim.basic
   SHELL
 end
