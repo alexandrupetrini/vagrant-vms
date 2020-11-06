@@ -21,11 +21,6 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get upgrade -y
-  #   apt-get install -y wireguard wireguard-tools wireguard-dkms git
-  # SHELL
 
   config.vm.define "server" do |server|
     server.vm.box = "wg-vpn"
@@ -62,4 +57,11 @@ Vagrant.configure("2") do |config|
       cl.cpus = 1
     end
   end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    yes | apt-get upgrade
+    yes | apt-get install linux-headers-$(uname --kernel-release)
+    yes | apt-get install wireguard wireguard-tools wireguard-dkms git
+  SHELL
 end
