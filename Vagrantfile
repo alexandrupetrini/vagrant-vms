@@ -24,6 +24,30 @@ Vagrant.configure("2") do |config|
 
   ENV['VAGRANT_DEFAULT_PROVIDER'] = 'hyperv'
 
+  config.vm.define "win_server_vpn" do |wserver|
+    wserver.vm.box = "gusztavvargadr/windows-server"
+    # wserver.vm.network "public_network",  ip: "192.168.0.55", auto_config: false
+    wserver.vm.network "public_network",  auto_config: true
+    wserver.vm.box_check_update = false
+
+    wserver.vm.synced_folder "./", "/vagrant_data", disabled: true
+
+    wserver.vm.provider :hyperv do |wsv, override|
+      wsv.linked_clone = false
+      wsv.enable_virtualization_extensions = true
+      wsv.maxmemory = 2048
+      wsv.memory = 2048
+      wsv.vmname = "win-opnenvpn-client"
+      wsv.cpus = 1
+    end
+
+    wserver.vm.provider "virtualbox" do |wsvb|
+      wsvb.name = "win-opnenvpn-client"
+      wsvb.memory = 2048
+      wsvb.cpus = 1
+    end
+  end
+
   config.vm.define "win_server" do |wserver|
     wserver.vm.box = "gusztavvargadr/windows-server"
     # wserver.vm.network "public_network",  ip: "192.168.0.55", auto_config: false
