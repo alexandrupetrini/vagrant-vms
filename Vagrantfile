@@ -48,6 +48,29 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define "win_server" do |v|
+    v.vm.box = "gusztavvargadr/windows-10"
+    # wserver.vm.network "public_network",  ip: "192.168.0.55", auto_config: false
+    v.vm.network "public_network",  auto_config: true
+    v.vm.box_check_update = false
+
+    v.vm.synced_folder "./", "/vagrant_data", disabled: true
+
+    v.vm.provider :hyperv do |hv, override|
+      hv.linked_clone = false
+      hv.enable_virtualization_extensions = true
+      hv.maxmemory = 2048
+      hv.memory = 2048
+      hv.cpus = 1
+    end
+
+    wserver.vm.provider "virtualbox" do |vb|
+      vb.name = "win_client"
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+  end  
+
   config.vm.define "win_server" do |wserver|
     wserver.vm.box = "gusztavvargadr/windows-server"
     # wserver.vm.network "public_network",  ip: "192.168.0.55", auto_config: false
