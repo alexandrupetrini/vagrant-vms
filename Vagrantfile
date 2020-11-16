@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "win_server" do |v|
+  config.vm.define "win_10" do |v|
     v.vm.box = "gusztavvargadr/windows-10"
     # wserver.vm.network "public_network",  ip: "192.168.0.55", auto_config: false
     v.vm.network "public_network",  auto_config: true
@@ -64,7 +64,7 @@ Vagrant.configure("2") do |config|
       hv.cpus = 1
     end
 
-    wserver.vm.provider "virtualbox" do |vb|
+    v.vm.provider "virtualbox" do |vb|
       vb.name = "win_client"
       vb.memory = 2048
       vb.cpus = 1
