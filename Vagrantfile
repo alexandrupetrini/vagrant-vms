@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
     end
 
     v.vm.provider "virtualbox" do |vb|
-      vb.name = "win_client"
+      vb.name = "win_10"
       vb.memory = 2048
       vb.cpus = 1
     end
